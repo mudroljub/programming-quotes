@@ -8,6 +8,5 @@ npm run dev
 
 ## TODO
 
-- napraviti DAO
 - login
 - editovanje citata
