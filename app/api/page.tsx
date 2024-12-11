@@ -3,8 +3,7 @@ import Link from 'next/link'
 export default function API(): JSX.Element {
   return (
     <div>
-      <p>
-      This client application uses the Programming Quotes API.</p> 
+      <h2 className="text-xl">Programming Quotes API</h2>
       
       <p className="mt-4">Github repo: <Link href="https://github.com/mudroljub/programming-quotes-api">github.com/mudroljub/programming-quotes-api</Link>
       </p>
