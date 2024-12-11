@@ -7,9 +7,7 @@ npm run dev
 ```
 
 ## TODO
-
-- dodati vizuelizaciju
-  - https://d3js.org/
+F
 - napraviti DAO
 - login
 - editovanje citata
