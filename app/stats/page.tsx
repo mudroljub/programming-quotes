@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import BarChart from '../components/BarChart'
 import PieChart from '../components/PieChart'
 import { Quote } from '../../types'
+import API from '../API'
 
 export default function About(): JSX.Element | null {
   const [data, setData] = useState<[string, number][]>()
@@ -10,7 +11,7 @@ export default function About(): JSX.Element | null {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://programming-quotes-api.azurewebsites.net/api/quotes');
+        const response = await API.GET('quotes');
         const quotes: Quote[] = await response.json();
 
         const authorCount = quotes.reduce<Map<string, number>>((acc, quote) => {
