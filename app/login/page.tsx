@@ -1,22 +1,18 @@
 'use client';
 import { FormEvent, useState } from 'react'
+import API from '../API'
 
 export default function LoginPage() {
   const [message, setMessage] = useState<React.ReactNode>(null)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
- 
+
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email')
     const password = formData.get('password')
- 
-    const response = await fetch('http://localhost:5000/api/auth/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
- 
+    const response = await API.POST('auth/token', { email, password })
+
     if (response.ok) {
       const res = await response.json()
       setMessage(<p className="text-green-500">Logged in successfully</p>)
