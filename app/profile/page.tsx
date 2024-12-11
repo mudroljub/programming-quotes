@@ -1,39 +1,24 @@
 "use client"
 import { jwtDecode } from 'jwt-decode'
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext'
 
 type User = {
+  id: string;
   email: string;
   privilege: number;
+  exp: number;
 };
 
 const Profile = () => {
-  const [user, setUser] = useState<User | null>(null)
-  const { setAuth } = useAuth()
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'))
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      try {
-        const decoded: User = jwtDecode(token)
-        console.log(decoded)
-        setUser(decoded)
-        setAuth(true)
-      } catch (error) {
-        setAuth(false)
-        console.error('Failed to decode token:', error)
-      }
-    }
-  }, [])
+  if (!token) return <p>You are not logged in</p>
+
+  const user: User = jwtDecode(token)
 
   return (
     <div>
-      {user ? (
-        <p>Welcome, {user?.email}</p>
-      ) : (
-        <p>You are not logged in</p>
-      )}
+      <p>Welcome, {user?.email}</p>
     </div>
   )
 }
