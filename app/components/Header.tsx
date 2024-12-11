@@ -1,15 +1,17 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useAuth } from '../context/AuthContext'
 
 export default function Header() {
   const pathname = usePathname()
+  const { auth } = useAuth()
 
   function isActive(link: string): string {
     return `hover:underline ${pathname === link ? 'font-bold' : ''}`
   }
 
-  const profile = localStorage.getItem('token')
+  const profile = auth
     ? <Link href="/profile" style={{ float: 'right' }}>Profile</Link>
     : <Link href="/login" style={{ float: 'right' }}>Login</Link>
 
