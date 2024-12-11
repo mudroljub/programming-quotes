@@ -9,10 +9,14 @@ export default function Header() {
     return `hover:underline ${pathname === link ? 'font-bold' : ''}`
   }
 
+  const profile = localStorage.getItem('token')
+    ? <Link href="/profile" style={{ float: 'right' }}>Profile</Link>
+    : <Link href="/login" style={{ float: 'right' }}>Login</Link>
+
   return (
     <header className="bg-blue-500 text-white p-4">
       <div className="max-w-4xl mx-auto">
-        <Link href="/login" style={{ float: 'right' }}>Login</Link>
+        {profile}
         <h1 className="text-xl">Programming Quotes</h1>
         <nav>
           <ul className="flex space-x-4">

@@ -2,7 +2,7 @@
 import { FormEvent, useState } from 'react'
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<React.ReactNode>(null)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -19,10 +19,12 @@ export default function LoginPage() {
  
     if (response.ok) {
       const res = await response.json()
+      setMessage(<p className="text-green-500">Logged in successfully</p>)
       localStorage.setItem('token', res.token)
+      // TODO: navigate to Profile
     } else {
       const res = await response.json()
-      setError(res.message)
+      setMessage(<p className="text-red-500">{res.message}</p>)
     }
   }
  
@@ -36,7 +38,7 @@ export default function LoginPage() {
           type="email"
           name="email"
           id="email"
-          className="border px-3 py-2"
+          className="border px-3 py-2 focus:outline-none"
           required
         />
       </div>
@@ -46,11 +48,11 @@ export default function LoginPage() {
           type="password"
           name="password"
           id="password"
-          className="border px-3 py-2"
+          className="border px-3 py-2 focus:outline-none"
           required
         />
       </div>
-      {error && <p className="text-red-500">{error}</p>}
+      {message}
       <button type="submit" className="bg-blue-500 text-white px-4 py-2">Login</button>
     </form>
   </div>
