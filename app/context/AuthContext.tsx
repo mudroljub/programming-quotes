@@ -15,12 +15,16 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null)
+  const [token, setTokenState] = useState<string | null>(null)
 
-  // TODO: set i delete storage
+  const setToken = (newToken: string | null) => {
+    setTokenState(newToken)
+    if (newToken !== null) localStorage.setItem('token', newToken)
+    else localStorage.clear()
+  }
 
   useEffect(() => {
-    setToken(localStorage.getItem('token'))
+    setTokenState(localStorage.getItem('token'))
   }, [])
 
   return (
