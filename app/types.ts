@@ -6,6 +6,12 @@ export type Quote = {
   rating?: number;
 };
 
+export type QuoteCreate = {
+  author: string;
+  text: string;
+  source?: string;
+};
+
 export type User = {
   id: string;
   email: string;

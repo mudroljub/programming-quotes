@@ -1,8 +1,8 @@
 'use client';
 import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import API from '../API'
 import { useAuth } from '../context/AuthContext'
+import API from '../API'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -52,7 +52,7 @@ export default function LoginPage() {
           required
         />
       </div>
-      <p className="text-red-500">{error}</p>
+      {error && <p className="text-red-500">{error}</p>}
       <button type="submit" className="bg-blue-500 text-white px-4 py-2">Login</button>
     </form>
   </div>

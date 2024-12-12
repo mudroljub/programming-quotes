@@ -11,3 +11,5 @@ npm run dev
 - add
 - edit citat
 - pretraga citata
+- glasanje
+- responsive
