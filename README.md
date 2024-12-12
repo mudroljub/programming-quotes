@@ -8,8 +8,8 @@ npm run dev
 
 ## TODO
 
-- add
 - edit citat
 - pretraga citata
 - glasanje
 - responsive
+- pobrisati smeće iz baze

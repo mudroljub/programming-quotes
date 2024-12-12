@@ -4,12 +4,13 @@ import { QuoteCreate } from '../types'
 import API from '../API'
 
 const AddQuoteForm = () => {
-  const [message, setMessage] = useState<string>('');
+  const [error, setError] = useState<string | null>();
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
-    const formData = new FormData(event.target as HTMLFormElement);
+    const form = e.target as HTMLFormElement
+    const formData = new FormData(form)
 
     const newQuote: QuoteCreate = {
       author: formData.get('author') as string,
@@ -21,13 +22,15 @@ const AddQuoteForm = () => {
       const response = await API.POST('quotes', newQuote);
 
       if (response.ok) {
-        setMessage('Quote added successfully!');
+        form.reset()
+        setError(null)
+        alert('Quote added successfully!');
       } else {
         const res = await response.json();
-        setMessage(`Error: ${res.message}`);
+        setError(`${res.message}: ${res.error}`);
       }
     } catch (error) {
-      setMessage('Something went wrong, please try again.');
+      setError('Something went wrong, please try again.');
     }
   };
 
@@ -61,9 +64,9 @@ const AddQuoteForm = () => {
             className="border px-3 py-2 w-full"
           />
         </div>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <button type="submit" className="bg-blue-500 text-white px-4 py-2">Add Quote</button>
       </form>
-      {message && <p className="mt-4">{message}</p>}
     </div>
   );
 };
