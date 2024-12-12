@@ -9,5 +9,6 @@ npm run dev
 ## TODO
 
 - logout na profile
-- editovanje citata
+- edit citat
 - pretraga citata
+- add

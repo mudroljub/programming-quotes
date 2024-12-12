@@ -31,6 +31,8 @@ const Profile = () => {
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>Privilege level:</strong> {user.privilege}</p>
       <p><strong>Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
+      
+      <button onClick={() => localStorage.clear()} className='mt-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
     </div>
   )
 }
