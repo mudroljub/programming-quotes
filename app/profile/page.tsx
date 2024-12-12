@@ -1,6 +1,7 @@
 "use client"
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
+import { useAuth } from '../context/AuthContext'
 
 type User = {
   id: string;
@@ -10,12 +11,11 @@ type User = {
 };
 
 const Profile = () => {
-  const [token, setToken] = useState<string | null>()
   const [loading, setLoading] = useState<boolean>(true)
+  const { token, setToken } = useAuth()
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    setToken(token)
+    setToken(localStorage.getItem('token'))
     setLoading(false)
   }, [])
 
@@ -32,7 +32,7 @@ const Profile = () => {
       <p><strong>Privilege level:</strong> {user.privilege}</p>
       <p><strong>Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
       
-      <button onClick={() => localStorage.clear()} className='mt-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
+      <button onClick={() => setToken(null)} className='mt-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
     </div>
   )
 }

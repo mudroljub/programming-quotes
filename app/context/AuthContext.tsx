@@ -2,8 +2,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
 interface AuthContextType {
-  auth: boolean | null
-  setAuth: (auth: boolean) => void
+  token: string | null
+  setToken: (token: string | null) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -15,15 +15,14 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [auth, setAuth] = useState<boolean>(false)
+  const [token, setToken] = useState<string | null>(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    setAuth(!!token)
+    setToken(localStorage.getItem('token'))
   }, [])
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ token, setToken }}>
       {children}
     </AuthContext.Provider>
   )

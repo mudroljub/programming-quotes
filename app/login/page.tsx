@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 
 export default function LoginPage() {
   const [message, setMessage] = useState<React.ReactNode>(null)
-  const { setAuth } = useAuth()
+  const { setToken } = useAuth()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -17,14 +17,13 @@ export default function LoginPage() {
 
     if (response.ok) {
       const res = await response.json()
-      localStorage.setItem('token', res.token)
-      setAuth(true)
+      setToken(res.token)
       setMessage(<p className="text-green-500">Logged in successfully</p>)
       // TODO: navigate to Profile
     } else {
       const res = await response.json()
       setMessage(<p className="text-red-500">{res.message}</p>)
-      setAuth(false)
+      setToken(null)
     }
   }
  

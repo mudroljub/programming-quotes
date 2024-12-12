@@ -5,13 +5,13 @@ import { useAuth } from '../context/AuthContext'
 
 export default function Header() {
   const pathname = usePathname()
-  const { auth } = useAuth()
+  const { token } = useAuth()
 
   function isActive(link: string): string {
     return `hover:underline ${pathname === link ? 'font-bold' : ''}`
   }
 
-  const profile = auth
+  const profile = token
     ? <Link href="/profile" style={{ float: 'right' }}>Profile</Link>
     : <Link href="/login" style={{ float: 'right' }}>Login</Link>
 
