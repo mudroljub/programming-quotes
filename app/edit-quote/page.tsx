@@ -1,15 +1,30 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation'
-import { QuoteCreate } from '../types'
+import { Quote, QuoteCreate } from '../types'
 import API from '../API'
 
 const EditQuote = () => {
-  const [error, setError] = useState<string | null>();
+  const [error, setError] = useState<string | null>()
+  const [quote, setQuote] = useState<Quote | null>()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
-  console.log(id);
+  useEffect(() => {
+    if (!id) return
+
+    const fetchData = async () => {
+      try {
+        const response = await API.GET(`quotes/${id}`)
+        const quote: Quote = await response.json()
+        setQuote(quote)
+      } catch (error) {
+        console.error("Error fetching quotes:", error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -39,6 +54,8 @@ const EditQuote = () => {
     }
   };
 
+  if (!quote) return 'Loading...'
+
   return (
     <div className="w-full lg:w-8/12">
       <h2 className="text-xl mb-4">Edit quote</h2>
@@ -49,7 +66,7 @@ const EditQuote = () => {
           <input
             type="text"
             name="author"
-            required
+            value={quote.author} 
             className="border px-3 py-2 w-full"
           />
         </div>
@@ -57,7 +74,7 @@ const EditQuote = () => {
           <label htmlFor="text" className="block mb-1">Text:</label>
           <textarea
             name="text"
-            required
+            value={quote.text} 
             className="border px-3 py-2 w-full"
           />
         </div>
@@ -66,6 +83,7 @@ const EditQuote = () => {
           <input
             type="text"
             name="source"
+            value={quote?.source}
             className="border px-3 py-2 w-full"
           />
         </div>
