@@ -7,6 +7,7 @@ interface AuthContextType {
   token: string | null
   user: User | null
   setToken: (token: string | null) => void
+  loading: boolean
 }
 
 interface Props {
@@ -20,6 +21,7 @@ export const useAuth = (): AuthContextType => useContext(AuthContext) as AuthCon
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [token, setTokenState] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -27,6 +29,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       setTokenState(token)
       setUser(jwtDecode(token))  
     }
+    setLoading(false)
   }, [])
 
   const setToken = (newToken: string | null) => {
@@ -42,7 +45,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, setToken, user }}>
+    <AuthContext.Provider value={{ token, setToken, user, loading }}>
       {children}
     </AuthContext.Provider>
   )
