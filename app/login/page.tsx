@@ -1,11 +1,13 @@
 'use client';
 import { FormEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import API from '../API'
 import { useAuth } from '../context/AuthContext'
 
 export default function LoginPage() {
-  const [message, setMessage] = useState<React.ReactNode>(null)
+  const router = useRouter()
   const { setToken } = useAuth()
+  const [error, setError] = useState()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -18,11 +20,10 @@ export default function LoginPage() {
     if (response.ok) {
       const res = await response.json()
       setToken(res.token)
-      setMessage(<p className="text-green-500">Logged in successfully</p>)
-      // TODO: navigate to Profile
+      router.push('/profile')
     } else {
       const res = await response.json()
-      setMessage(<p className="text-red-500">{res.message}</p>)
+      setError(res.message)
       setToken(null)
     }
   }
@@ -51,7 +52,7 @@ export default function LoginPage() {
           required
         />
       </div>
-      {message}
+      <p className="text-red-500">{error}</p>
       <button type="submit" className="bg-blue-500 text-white px-4 py-2">Login</button>
     </form>
   </div>
