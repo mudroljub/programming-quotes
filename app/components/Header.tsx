@@ -29,6 +29,9 @@ export default function Header() {
               <Link href="/add-new" className={isActive('/add-new')}>Add new</Link>
             </li>
             <li>
+              <Link href="/search" className={isActive('/search')}>Search</Link>
+            </li>
+            <li>
               <Link href="/stats" className={isActive('/stats')}>Stats</Link>
             </li>
             <li>
