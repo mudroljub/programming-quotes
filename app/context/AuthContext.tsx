@@ -15,8 +15,9 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [auth, setAuth] = useState<boolean>(!!localStorage.getItem('token'))
-
+  const [auth, setAuth] = useState<boolean>(
+    typeof window !== 'undefined' && !!localStorage.getItem('token')
+  )
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

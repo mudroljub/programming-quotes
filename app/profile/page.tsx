@@ -1,6 +1,6 @@
 "use client"
 import { jwtDecode } from 'jwt-decode'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type User = {
   id: string;
@@ -10,7 +10,7 @@ type User = {
 };
 
 const Profile = () => {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'))
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
 
   if (!token) return <p>You are not logged in</p>
 
