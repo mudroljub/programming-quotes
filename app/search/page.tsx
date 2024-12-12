@@ -22,15 +22,16 @@ export default function Search(): JSX.Element | null {
     fetchData()
   }, [])
 
-  const options = [
-    { value: 'apple', label: 'Apple' },
-    { value: 'banana', label: 'Banana' },
-    { value: 'cherry', label: 'Cherry' },
-  ]
-
   const handleChange = (selected: any) => {
-    console.log(selected)
-  };
+    console.log(selected?.value)
+  }
+
+  if (!quotes) return null
+
+  const unique = quotes.reduce((acc, q) => acc.add(q.author), new Set())
+  const options = [...unique]
+    .sort()
+    .map(value => ({ value, label: value }))
 
   return (
     <>
@@ -38,11 +39,12 @@ export default function Search(): JSX.Element | null {
 
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-4">
-          <Select 
-            options={options} 
-            isSearchable 
-            isClearable 
+          <Select
+            options={options}
+            isSearchable
+            isClearable
             onChange={handleChange}
+            placeholder="Select author"
           />
         </div>
         <div className="col-span-8">
