@@ -7,7 +7,9 @@ export default async function Home(): Promise<JSX.Element> {
   const quote: Quote = await res.json();
 
   return (
-    <>
+    <div>
+      <h2 className="text-xl mb-4">Quote of the day</h2>
+    
       <BlockQuote quote={quote} />
 
       <form method="GET" className="mt-4">
@@ -15,6 +17,6 @@ export default async function Home(): Promise<JSX.Element> {
           New quote
         </button>
       </form>
-    </>
+    </div>
   );
 }

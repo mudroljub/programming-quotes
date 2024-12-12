@@ -12,3 +12,4 @@ npm run dev
 - glasanje
 - responsive
 - pobrisati smeće iz baze
+  - još bolje, implement delete
