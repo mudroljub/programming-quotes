@@ -11,12 +11,15 @@ type User = {
 
 const Profile = () => {
   const [token, setToken] = useState<string | null>()
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     setToken(token)
+    setLoading(false)
   }, [])
 
+  if (loading) return <p>Loading...</p>
   if (!token) return <p>You are not logged in</p>
 
   const user: User = jwtDecode(token)
