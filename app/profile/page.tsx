@@ -26,7 +26,11 @@ const Profile = () => {
 
   return (
     <div>
-      <p>Welcome, {user?.email}</p>
+      <h2 className="text-xl mb-4">My Profile</h2>
+
+      <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>Privilege level:</strong> {user.privilege}</p>
+      <p><strong>Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
     </div>
   )
 }

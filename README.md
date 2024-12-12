@@ -8,7 +8,6 @@ npm run dev
 
 ## TODO
 
-- profile page
-  - logout na profile
-- login state
+- logout na profile
 - editovanje citata
+- pretraga citata
