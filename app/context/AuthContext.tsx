@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useContext, useState, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
 interface AuthContextType {
   auth: boolean | null
@@ -15,9 +15,13 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [auth, setAuth] = useState<boolean>(
-    typeof window !== 'undefined' && !!localStorage.getItem('token')
-  )
+  const [auth, setAuth] = useState<boolean>(false)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    setAuth(!!token)
+  }, [])
+
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
