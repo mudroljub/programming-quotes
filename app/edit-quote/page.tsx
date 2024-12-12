@@ -10,6 +10,7 @@ const EditQuote = () => {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
+  // TODO: proveriti privilegiju
   useEffect(() => {
     if (!id) return
 
@@ -36,23 +37,22 @@ const EditQuote = () => {
       author: formData.get('author') as string,
       text: formData.get('text') as string,
       source: formData.get('source') as string,
-    };
+    }
 
     try {
-      const response = await API.PUT('quotes', newQuote);
+      const response = await API.PUT(`quotes/${id}`, newQuote)
 
       if (response.ok) {
-        form.reset()
         setError(null)
-        alert('Quote added successfully!');
+        alert('Quote updated successfully!')
       } else {
         const res = await response.json();
         setError(`${res.message}: ${res.error}`);
       }
     } catch (error) {
-      setError('Something went wrong, please try again.');
+      setError('Something went wrong, please try again.')
     }
-  };
+  }
 
   if (!quote) return 'Loading...'
 
@@ -66,7 +66,7 @@ const EditQuote = () => {
           <input
             type="text"
             name="author"
-            value={quote.author} 
+            defaultValue={quote.author} 
             className="border px-3 py-2 w-full"
           />
         </div>
@@ -74,7 +74,7 @@ const EditQuote = () => {
           <label htmlFor="text" className="block mb-1">Text:</label>
           <textarea
             name="text"
-            value={quote.text} 
+            defaultValue={quote.text}
             className="border px-3 py-2 w-full"
           />
         </div>
@@ -83,7 +83,7 @@ const EditQuote = () => {
           <input
             type="text"
             name="source"
-            value={quote?.source}
+            defaultValue={quote?.source}
             className="border px-3 py-2 w-full"
           />
         </div>

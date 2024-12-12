@@ -8,7 +8,8 @@ npm run dev
 
 ## TODO
 
-- edit citat
+- edit citat (proveriti privilegiju)
+  - useAuth dodati usera i koristiti u blockquote
 - pretraga citata
 - glasanje
 - responsive
