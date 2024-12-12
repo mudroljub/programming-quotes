@@ -21,7 +21,14 @@ const POST = (route: string, body: object) => fetch(`${baseUrl}/${route}`, {
   body: JSON.stringify(body),
 })
 
+const PUT = (route: string, body: object) => fetch(`${baseUrl}/${route}`, {
+  method: 'PUT',
+  headers: getHeaders(),
+  body: JSON.stringify(body),
+})
+
 export default {
   GET,
   POST,
+  PUT,
 }

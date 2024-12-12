@@ -1,10 +1,15 @@
 'use client';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation'
 import { QuoteCreate } from '../types'
 import API from '../API'
 
-const AddQuote = () => {
+const EditQuote = () => {
   const [error, setError] = useState<string | null>();
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
+
+  console.log(id);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,7 +24,7 @@ const AddQuote = () => {
     };
 
     try {
-      const response = await API.POST('quotes', newQuote);
+      const response = await API.PUT('quotes', newQuote);
 
       if (response.ok) {
         form.reset()
@@ -36,7 +41,7 @@ const AddQuote = () => {
 
   return (
     <div className="w-full lg:w-8/12">
-      <h2 className="text-xl mb-4">Add new quote</h2>
+      <h2 className="text-xl mb-4">Edit quote</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -57,7 +62,7 @@ const AddQuote = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="source" className="block mb-1">Source (optional):</label>
+          <label htmlFor="source" className="block mb-1">Source:</label>
           <input
             type="text"
             name="source"
@@ -71,4 +76,4 @@ const AddQuote = () => {
   );
 };
 
-export default AddQuote;
+export default EditQuote;
