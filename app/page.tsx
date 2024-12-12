@@ -1,4 +1,4 @@
-import { Quote } from '../types';
+import { Quote } from './types';
 import BlockQuote from './components/BlockQuote'
 import API from './API'
 

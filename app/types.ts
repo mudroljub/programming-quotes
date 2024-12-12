@@ -6,6 +6,13 @@ export type Quote = {
   rating?: number;
 };
 
+export type User = {
+  id: string;
+  email: string;
+  privilege: number;
+  exp: number;
+};
+
 type Dataset = {
   label: string;
   data: number[];

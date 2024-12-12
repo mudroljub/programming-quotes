@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import BarChart from '../components/BarChart'
 import PieChart from '../components/PieChart'
-import { Quote } from '../../types'
+import { Quote } from '../types'
 import API from '../API'
 
 export default function About(): JSX.Element | null {

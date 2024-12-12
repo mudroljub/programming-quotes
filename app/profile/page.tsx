@@ -2,13 +2,7 @@
 import { jwtDecode } from 'jwt-decode'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
-
-type User = {
-  id: string;
-  email: string;
-  privilege: number;
-  exp: number;
-};
+import { User } from '../types';
 
 const Profile = () => {
   const [loading, setLoading] = useState<boolean>(true)
