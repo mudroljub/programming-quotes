@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react"
 import Select from 'react-select'
 import { Quote } from '../types'
 import API from '../API'
-import SearchInput from './SearchInput'
 
 export default function Search(): JSX.Element | null {
   const [quotes, setQuotes] = useState<Quote[] | undefined>()
@@ -22,8 +21,12 @@ export default function Search(): JSX.Element | null {
     fetchData()
   }, [])
 
-  const handleChange = (selected: any) => {
+  const onChange = (selected: any) => {
     console.log(selected?.value)
+  }
+
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
   }
 
   if (!quotes) return null
@@ -43,12 +46,22 @@ export default function Search(): JSX.Element | null {
             options={options}
             isSearchable
             isClearable
-            onChange={handleChange}
+            onChange={onChange}
             placeholder="Select author"
           />
         </div>
         <div className="col-span-8">
-          <SearchInput />
+          <div className="relative w-full">
+            <input
+              type="text"
+              placeholder="Search quotes"
+              className="pl-4 pr-4 py-2 border rounded-lg w-full"
+              onInput={onInput}
+            />
+            <span className="absolute right-3 top-1/2 transform -translate-y-1/2">
+              🔍
+            </span>
+          </div>
         </div>
       </div>
     </>
