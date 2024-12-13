@@ -9,5 +9,5 @@ npm run dev
 ## TODO
 
 - potvrda mejla
-- glasanje
+- glasanje i favorite
 - responsive

@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 
 type PrivilegesProps = {
@@ -6,20 +5,6 @@ type PrivilegesProps = {
 };
 
 const Privileges: React.FC<PrivilegesProps> = ({ privilege }) => {
-  const getPrivilegeLabel = (privilege: number) => {
-    switch (privilege) {
-      case 0:
-        return 'Unverified User';
-      case 1:
-        return 'Verified User';
-      case 2:
-        return 'Editor';
-      case 3:
-        return 'Admin';
-      default:
-        return 'Unknown';
-    }
-  };
 
   const rows = [
     { level: 0, label: 'Unverified User', desc: 'Can vote' },
@@ -30,19 +15,12 @@ const Privileges: React.FC<PrivilegesProps> = ({ privilege }) => {
 
   return (
     <table>
-      <thead>
-        <tr>
-          <th>Privilege:</th>
-          <th style={{ minWidth: '160px' }}></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+      <tbody style={{ border: '1px solid gray' }}>
         {rows.map(({ level, label, desc }) => (
           <tr key={level} style={{ backgroundColor: level === privilege ? '#d3f0d3' : 'transparent' }}>
-            <td>{level}</td>
-            <td>{label}</td>
-            <td>{desc}</td>
+            <td style={{ padding: '2px 16px' }}>{level}</td>
+            <td style={{ padding: '2px 16px' }}>{label}</td>
+            <td style={{ padding: '2px 16px' }}>{desc}</td>
           </tr>
         ))}
       </tbody>

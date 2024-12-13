@@ -14,7 +14,7 @@ export default async function Home(): Promise<JSX.Element> {
 
       <form method="GET">
         <button type="submit" className="h-10 px-6 font-semibold bg-black text-white">
-          New quote
+          Gimme more
         </button>
       </form>
     </div>
