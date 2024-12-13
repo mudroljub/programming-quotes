@@ -28,6 +28,8 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
 
   const authorLink: string = `https://en.wikipedia.org/wiki/${quote.author.replace(/ /g, '_')}`;
 
+  const red = shouldDelete ? 'text-red-500' : ''
+
   const deleteQuote = async () => {
     try {
       await API.DELETE(`quotes/${quote._id}`)
@@ -44,10 +46,9 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
     setShouldDelete(true)
   }
 
-  const red = shouldDelete ? 'text-red-500' : ''
-
-  const toggleFavorite = () => {
-    setFavorite(!favorite)
+  const toggleFavorite = async() => {
+    const res = await API.POST(`quotes/favorite/${quote._id}`, {})
+    if (res.ok) setFavorite(!favorite)
   }
 
   return (

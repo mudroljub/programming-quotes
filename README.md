@@ -9,5 +9,6 @@ npm run dev
 ## TODO
 
 - favorites
+  - proveriti usera
 - potvrda mejla
 - responsive
