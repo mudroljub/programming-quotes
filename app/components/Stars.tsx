@@ -19,8 +19,6 @@ export default function Stars({ rating = 0, id }: Props): JSX.Element {
     try {
       const res = await API.POST(`quotes/vote/${id}`, { newVote })
       const quote: Quote = await res.json()
-      console.log(quote);
-      
       setValue(quote.rating as number)
     } catch (error) {
       alert('Something went wrong, please try again.')
