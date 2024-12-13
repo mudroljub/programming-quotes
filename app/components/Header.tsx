@@ -5,15 +5,15 @@ import { useAuth } from '../context/AuthContext'
 
 export default function Header() {
   const pathname = usePathname()
-  const { token } = useAuth()
+  const { user } = useAuth()
 
   function isActive(link: string): string {
     return `hover:underline ${pathname === link ? 'font-bold' : ''}`
   }
 
-  const profile = token
-    ? <Link href="/profile" style={{ float: 'right' }}>Profile</Link>
-    : <Link href="/login" style={{ float: 'right' }}>Login</Link>
+  const profile = user
+    ? <Link href="/profile" style={{ float: 'right' }}>👤 Profile</Link>
+    : <Link href="/login" style={{ float: 'right' }}>🔒 Login</Link>
 
   return (
     <header className="bg-blue-500 text-white p-4">
@@ -28,9 +28,11 @@ export default function Header() {
             <li>
               <Link href="/search" className={isActive('/search')}>Search</Link>
             </li>
-            <li>
-              <Link href="/add-new" className={isActive('/add-new')}>Add new</Link>
-            </li>
+            {user && user?.privilege > 1 &&
+              <li>
+                <Link href="/add-new" className={isActive('/add-new')}>Add new</Link>
+              </li>
+            }
             <li>
               <Link href="/stats" className={isActive('/stats')}>Stats</Link>
             </li>
