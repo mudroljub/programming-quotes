@@ -8,8 +8,6 @@ npm run dev
 
 ## TODO
 
-- pretraga citata
+- delete
 - glasanje
 - responsive
-- pobrisati smeće iz baze
-  - još bolje, implement delete
