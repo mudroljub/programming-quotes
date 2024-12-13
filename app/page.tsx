@@ -8,11 +8,11 @@ export default async function Home(): Promise<JSX.Element> {
 
   return (
     <div>
-      <h2 className="text-xl mb-4">Quote of the day</h2>
+      <h2 className="text-xl">Quote of the day</h2>
     
       <BlockQuote quote={quote} />
 
-      <form method="GET" className="mt-4">
+      <form method="GET">
         <button type="submit" className="h-10 px-6 font-semibold bg-black text-white">
           New quote
         </button>

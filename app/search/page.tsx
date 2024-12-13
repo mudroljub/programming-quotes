@@ -8,7 +8,7 @@ import BlockQuote from '../components/BlockQuote'
 export default function Search(): JSX.Element | null {
   const [quotes, setQuotes] = useState<Quote[] | undefined>()
   const [selectedAuthor, setSelectedAuthor] = useState<string>()
-  const [searchString, setSearchString] = useState<string>()
+  const [searchString, setSearchString] = useState<string>('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,15 +34,27 @@ export default function Search(): JSX.Element | null {
 
   if (!quotes) return null
 
+  const highlightMatches = (text: string, searchString: string) => {
+    const regex = new RegExp(`(${searchString})`, 'gi')
+    return text.replace(regex, '<span style="color: tomato;">$1</span>')
+  }
+
+  const includes = (s1: string, s2: string) => s1.toLowerCase().includes(s2.toLowerCase())
+
   const unique = quotes.reduce((acc, q) => acc.add(q.author), new Set())
   const options = [...unique]
     .sort()
     .map(value => ({ value, label: value }))
 
   const filtered = quotes
-    .filter(q => !selectedAuthor || q.author === selectedAuthor)
-
-  console.log('filtered');
+    .filter(q => (
+      (searchString.length > 2 && includes(q.text, searchString) && !selectedAuthor || selectedAuthor === q.author) || 
+      (!searchString.length && selectedAuthor === q.author)
+    ))
+    .map(q => ({
+      ...q,
+      text: highlightMatches(q.text, searchString)
+    }))
   
   return (
     <>
