@@ -8,6 +8,6 @@ npm run dev
 
 ## TODO
 
-- delete
+- handle on delete
 - glasanje
 - responsive

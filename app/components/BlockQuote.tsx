@@ -6,16 +6,17 @@ import Stars from './Stars'
 import { useAuth } from '../context/AuthContext'
 import API from '../API'
 
-type Props = {
-  quote: Quote
-}
-
 const editStyle = {
   display: 'inline-block',
   transform: 'rotateZ(90deg)',
 }
 
-export default function BlockQuote({ quote }: Props): JSX.Element {
+type Props = {
+  quote: Quote
+  onDelete?: Function
+}
+
+export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   const { user } = useAuth()
   const [shouldDelete, setShouldDelete] = useState(false)
 
@@ -24,7 +25,8 @@ export default function BlockQuote({ quote }: Props): JSX.Element {
   const deleteQuote = async () => {
     try {
       await API.DELETE(`quotes/${quote._id}`)
-      // TODO: update state
+      // TODO: update state ili reload ili onDelete
+      if (onDelete) onDelete(quote._id)
       alert('Quote deleted successfully!')
     } catch (error) {
       alert('Something went wrong, please try again.')

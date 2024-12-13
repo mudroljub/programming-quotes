@@ -32,7 +32,13 @@ export default function Search(): JSX.Element | null {
     setSearchString(e.target.value)
   }
 
+  
   if (!quotes) return null
+
+  const onDelete = (id: string) => {
+    const filtered = quotes.filter(q => q._id !== id)
+    setQuotes(filtered)
+  }
 
   const highlightMatches = (text: string, searchString: string) => {
     const regex = new RegExp(`(${searchString})`, 'gi')
@@ -46,7 +52,7 @@ export default function Search(): JSX.Element | null {
     .sort()
     .map(value => ({ value, label: value }))
 
-  const filtered = quotes
+  const result = quotes
     .filter(q => (
       (searchString.length > 2 && includes(q.text, searchString) && !selectedAuthor || selectedAuthor === q.author) || 
       (!searchString.length && selectedAuthor === q.author)
@@ -86,7 +92,7 @@ export default function Search(): JSX.Element | null {
       </div>
 
       {
-        filtered.map(quote => <BlockQuote quote={quote}/>)
+        result.map(quote => <BlockQuote quote={quote} onDelete={onDelete} />)
       }
     </>
   )
