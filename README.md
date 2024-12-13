@@ -8,6 +8,7 @@ npm run dev
 
 ## TODO
 
+- glasanje
+- favorites
 - potvrda mejla
-- glasanje i favorite
 - responsive

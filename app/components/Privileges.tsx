@@ -7,7 +7,7 @@ type PrivilegesProps = {
 const Privileges: React.FC<PrivilegesProps> = ({ privilege }) => {
 
   const rows = [
-    { level: 0, label: 'Unverified User', desc: 'Can vote' },
+    { level: 0, label: 'Unverified User', desc: 'Can vote and favorite' },
     { level: 1, label: 'Verified User', desc: 'Can add new quotes' },
     { level: 2, label: 'Editor', desc: 'Can edit existing quotes' },
     { level: 3, label: 'Admin', desc: 'Can delete quotes' },
