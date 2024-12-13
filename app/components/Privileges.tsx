@@ -14,16 +14,14 @@ const Privileges: React.FC<PrivilegesProps> = ({ privilege }) => {
   ]
 
   return (
-    <table>
-      <tbody style={{ border: '1px solid gray' }}>
-        {rows.map(({ level, label, desc }) => (
-          <tr key={level} style={{ backgroundColor: level === privilege ? '#d3f0d3' : 'transparent' }}>
-            <td style={{ padding: '2px 16px' }}>{level}</td>
-            <td style={{ padding: '2px 16px' }}>{label}</td>
-            <td style={{ padding: '2px 16px' }}>{desc}</td>
-          </tr>
-        ))}
-      </tbody>
+    <table style={{ border: '1px solid gray' }}>
+      {rows.map(({ level, label, desc }) => (
+        <tr key={level} style={{ backgroundColor: level === privilege ? '#d3f0d3' : 'transparent' }}>
+          <td style={{ padding: '2px 16px' }}>{level}</td>
+          <td style={{ padding: '2px 16px' }}>{label}</td>
+          <td style={{ padding: '2px 16px' }}>{desc}</td>
+        </tr>
+      ))}
     </table>
   )
 }
