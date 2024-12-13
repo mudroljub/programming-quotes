@@ -11,8 +11,8 @@ const editStyle = {
   transform: 'rotateZ(90deg)',
 }
 const favoriteStyle = {
-  float: 'right',
   color: '#5799EF',
+  float: 'right',
   fontSize: '32px'
 }
 
@@ -23,6 +23,8 @@ type Props = {
 
 export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   const { user } = useAuth()
+  console.log(user);
+  
   const [shouldDelete, setShouldDelete] = useState(false)
   const [favorite, setFavorite] = useState(false)
 
@@ -47,6 +49,7 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   }
 
   const toggleFavorite = async() => {
+    if (!user) return
     const res = await API.POST(`quotes/favorite/${quote._id}`, {})
     if (res.ok) setFavorite(!favorite)
   }
