@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react"
 import Select from 'react-select'
 import { Quote } from '../types'
 import API from '../API'
+import BlockQuote from '../components/BlockQuote'
 
 export default function Search(): JSX.Element | null {
   const [quotes, setQuotes] = useState<Quote[] | undefined>()
+  const [selectedAuthor, setSelectedAuthor] = useState<string>()
+  const [searchString, setSearchString] = useState<string>()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,11 +25,11 @@ export default function Search(): JSX.Element | null {
   }, [])
 
   const onChange = (selected: any) => {
-    console.log(selected?.value)
+    setSelectedAuthor(selected?.value)
   }
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
+    setSearchString(e.target.value)
   }
 
   if (!quotes) return null
@@ -36,6 +39,11 @@ export default function Search(): JSX.Element | null {
     .sort()
     .map(value => ({ value, label: value }))
 
+  const filtered = quotes
+    .filter(q => !selectedAuthor || q.author === selectedAuthor)
+
+  console.log('filtered');
+  
   return (
     <>
       <h2 className="text-xl mb-4">Search quotes</h2>
@@ -64,6 +72,10 @@ export default function Search(): JSX.Element | null {
           </div>
         </div>
       </div>
+
+      {
+        filtered.map(quote => <BlockQuote quote={quote}/>)
+      }
     </>
   )
 }
