@@ -25,7 +25,7 @@ export default function Layout({ children }: Props) {
           </main>
 
           <footer className="bg-gray-800 text-white text-center p-4">
-            <p>🄯 Programming Quotes by mudroljub and open source community</p>
+            <p>🄯 Programming Quotes by mudroljub</p>
           </footer>
         </AuthProvider>
       </body>

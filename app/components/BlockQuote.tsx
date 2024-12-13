@@ -10,6 +10,11 @@ const editStyle = {
   display: 'inline-block',
   transform: 'rotateZ(90deg)',
 }
+const favoriteStyle = {
+  float: 'right',
+  color: '#5799EF',
+  fontSize: '32px'
+}
 
 type Props = {
   quote: Quote
@@ -19,6 +24,7 @@ type Props = {
 export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   const { user } = useAuth()
   const [shouldDelete, setShouldDelete] = useState(false)
+  const [favorite, setFavorite] = useState(false)
 
   const authorLink: string = `https://en.wikipedia.org/wiki/${quote.author.replace(/ /g, '_')}`;
 
@@ -40,16 +46,20 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
 
   const red = shouldDelete ? 'text-red-500' : ''
 
+  const toggleFavorite = () => {
+    setFavorite(!favorite)
+  }
+
   return (
     <blockquote className='bg-gray-900 text-white p-8 mt-4 mb-4'>
       <span style={{ float: 'right' }}>
         {user && user.privilege > 1 && (
-          <Link href={`/edit-quote?id=${quote._id}`} className='px-1 text-lg'>
+          <Link href={`/edit-quote?id=${quote._id}`} className='px-1 text-lg' title='Edit'>
             <span style={editStyle}>&#9998;</span>
           </Link>
         )}
         {user && user.privilege > 2 && (
-          <span onClick={tryDelete} className={`px-1 text-lg cursor-pointer ${red}`}>&#10005;</span>
+          <span title='Delete' onClick={tryDelete} className={`px-1 text-lg cursor-pointer ${red}`}>&#10005;</span>
         )}
       </span>
 
@@ -57,6 +67,10 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
 
       <Stars rating={quote.rating} id={quote._id} />
       <span> — <Link href={authorLink} target='_blank' className="hover:underline">{quote.author}</Link></span>
+
+      <button style={favoriteStyle} onClick={toggleFavorite} title='Add to favorites'>
+        {favorite ? '★' : '☆'}
+      </button>
     </blockquote>
   )
 }
