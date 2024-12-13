@@ -27,8 +27,14 @@ const PUT = (route: string, body: object) => fetch(`${baseUrl}/${route}`, {
   body: JSON.stringify(body),
 })
 
+const DELETE = (route: string) => fetch(`${baseUrl}/${route}`, {
+  method: 'DELETE',
+  headers: getHeaders(),
+})
+
 export default {
   GET,
   POST,
   PUT,
+  DELETE,
 }

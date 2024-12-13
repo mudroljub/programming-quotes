@@ -7,6 +7,7 @@ import API from '../API'
 const EditForm = () => {
   const [error, setError] = useState<string | null>()
   const [quote, setQuote] = useState<Quote | null>()
+  const [loading, setLoading] = useState(false)
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
@@ -15,12 +16,15 @@ const EditForm = () => {
     if (!id) return
 
     const fetchData = async () => {
+      setLoading(true)
       try {
         const response = await API.GET(`quotes/${id}`)
-        const quote: Quote = await response.json()
-        setQuote(quote)
+        if (response.ok)
+          setQuote(await response.json())
       } catch (error) {
         console.error("Error fetching quotes:", error)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -54,7 +58,8 @@ const EditForm = () => {
     }
   }
 
-  if (!quote) return 'Loading...'
+  if (loading) return 'Loading...'
+  if (!quote) return 'No quote'
 
   return (
     <div className="w-full lg:w-8/12">
