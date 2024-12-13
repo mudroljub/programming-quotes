@@ -92,7 +92,7 @@ export default function Search(): JSX.Element | null {
       </div>
 
       {
-        result.map(quote => <BlockQuote quote={quote} onDelete={onDelete} />)
+        result.map(quote => <BlockQuote quote={quote} key={quote._id} onDelete={onDelete} />)
       }
     </>
   )

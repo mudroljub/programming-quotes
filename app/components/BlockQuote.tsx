@@ -25,9 +25,8 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   const deleteQuote = async () => {
     try {
       await API.DELETE(`quotes/${quote._id}`)
-      // TODO: update state ili reload ili onDelete
-      if (onDelete) onDelete(quote._id)
       alert('Quote deleted successfully!')
+      if (onDelete) onDelete(quote._id)
     } catch (error) {
       alert('Something went wrong, please try again.')
     }
