@@ -12,6 +12,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-stars": "^2.2.4",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
     "postcss": "^8",
@@ -25,6 +26,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
-    "react-select": "^5.9.0"
+    "react-select": "^5.9.0",
+    "react-stars": "^2.2.5"
   }
 }

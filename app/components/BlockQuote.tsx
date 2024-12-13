@@ -55,7 +55,7 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
 
       <p className="text-xl" dangerouslySetInnerHTML={{ __html: quote.text }} />
 
-      <Stars rating={quote.rating ?? 0} />
+      <Stars rating={quote.rating} id={quote._id} />
       <span> — <Link href={authorLink} target='_blank' className="hover:underline">{quote.author}</Link></span>
     </blockquote>
   )
