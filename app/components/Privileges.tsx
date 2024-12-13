@@ -16,6 +16,7 @@ const Privileges: React.FC<PrivilegesProps> = ({ privilege, className }) => {
 
   return (
     <table style={{ border: '1px solid gray' }} className={className}>
+      <tbody>
       {rows.map(({ level, label, desc }) => (
         <tr key={level} style={{ backgroundColor: level === privilege ? '#d3f0d3' : 'transparent' }}>
           <td style={{ padding: '2px 16px' }}>{level}</td>
@@ -23,6 +24,7 @@ const Privileges: React.FC<PrivilegesProps> = ({ privilege, className }) => {
           <td style={{ padding: '2px 16px' }}>{desc}</td>
         </tr>
       ))}
+      </tbody>
     </table>
   )
 }
