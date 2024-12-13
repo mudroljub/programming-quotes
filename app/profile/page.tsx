@@ -12,14 +12,13 @@ const Profile = () => {
     <div>
       <h2 className="text-xl mb-4">My Profile</h2>
 
-      <p className='mb-2'><strong>✉️ Email:</strong> {user.email}</p>
-
       <p className='mb-2'><strong>🧙🏻‍♂️ Privilege:</strong></p>
-      <Privileges privilege={user.privilege} />
+      <Privileges privilege={user.privilege} className='mb-4' />
 
-      <p className='mt-2'><strong>⏳ Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
+      <p className='mb-4'><strong>⏳ Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
+      <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
       
-      <button onClick={() => setToken(null)} className='mt-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
+      <button onClick={() => setToken(null)} className='h-10 px-6 font-semibold bg-black text-white'>Logout</button>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import ReactStars from 'react-stars'
 
 import { Quote } from '../types'
 import API from '../API'
+import { useAuth } from '../context/AuthContext'
 
 type Props = {
   id: string
@@ -11,8 +12,10 @@ type Props = {
 
 export default function Stars({ rating = 0, id }: Props): JSX.Element {
   const [value, setValue] = useState<number>(rating)
+  const { user } = useAuth()
 
   const vote = async (newVote: number) => {
+    if (!user) return
     try {
       const res = await API.POST(`quotes/vote/${id}`, { newVote })
       const quote: Quote = await res.json()

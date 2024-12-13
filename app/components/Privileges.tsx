@@ -2,9 +2,10 @@ import React from 'react';
 
 type PrivilegesProps = {
   privilege: number;
+  className?: string
 };
 
-const Privileges: React.FC<PrivilegesProps> = ({ privilege }) => {
+const Privileges: React.FC<PrivilegesProps> = ({ privilege, className }) => {
 
   const rows = [
     { level: 0, label: 'Unverified User', desc: 'Can vote and favorite' },
@@ -14,7 +15,7 @@ const Privileges: React.FC<PrivilegesProps> = ({ privilege }) => {
   ]
 
   return (
-    <table style={{ border: '1px solid gray' }}>
+    <table style={{ border: '1px solid gray' }} className={className}>
       {rows.map(({ level, label, desc }) => (
         <tr key={level} style={{ backgroundColor: level === privilege ? '#d3f0d3' : 'transparent' }}>
           <td style={{ padding: '2px 16px' }}>{level}</td>
