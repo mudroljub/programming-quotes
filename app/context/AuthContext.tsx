@@ -21,14 +21,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const useAuth = (): AuthContextType => useContext(AuthContext) as AuthContextType
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [token, setTokenInState] = useState<string | null>(null)
+  const [token, setToken] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
-      setTokenInState(token)
+      setToken(token)
       const options = {
         headers: { Authorization: `Bearer ${token}` }
       }
@@ -40,9 +40,9 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       setLoading(false)
   }, [])
 
-  const setToken = (tok: string) => {
-    setTokenInState(tok)
-    localStorage.setItem('token', tok)
+  const setAndSaveToken = (jwt: string) => {
+    setToken(jwt)
+    localStorage.setItem('token', jwt)
   }
 
   const logout = () => {
@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, setToken, setUser, user, logout, loading }}>
+    <AuthContext.Provider value={{ token, setToken: setAndSaveToken, setUser, user, logout, loading }}>
       {children}
     </AuthContext.Provider>
   )

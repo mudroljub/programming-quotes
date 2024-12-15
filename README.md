@@ -9,8 +9,7 @@ npm run dev
 ## TODO
 
 - izrendati favorite
-  - pozvati user/id
-  - inicijalizovati stanje u citati
-  - izlistati na profilu
+  - u citatu prikazati favorite stanje
+  - izlistati omiljene na profilu
 - potvrda mejla
 - responsive
