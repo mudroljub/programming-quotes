@@ -1,12 +1,13 @@
 "use client"
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { jwtDecode } from 'jwt-decode'
 import { User } from '../types'
+import API from '../API'
 
 interface AuthContextType {
   token: string | null
   user: User | null
   setToken: (token: string) => void
+  setUser: (user: User) => void
   logout: () => void
   loading: boolean
 }
@@ -28,15 +29,20 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const token = localStorage.getItem('token')
     if (token) {
       setTokenInState(token)
-      setUser(jwtDecode(token))  
-    }
-    setLoading(false)
+      const options = {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+      API.GET('users/profile', options)
+        .then(res => res.json())
+        .then(res => setUser(res))
+        .finally(() => setLoading(false))
+    } else 
+      setLoading(false)
   }, [])
 
   const setToken = (tok: string) => {
     setTokenInState(tok)
     localStorage.setItem('token', tok)
-    setUser(jwtDecode(tok))
   }
 
   const logout = () => {
@@ -45,7 +51,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, setToken, user, logout, loading }}>
+    <AuthContext.Provider value={{ token, setToken, setUser, user, logout, loading }}>
       {children}
     </AuthContext.Provider>
   )

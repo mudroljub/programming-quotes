@@ -15,7 +15,7 @@ const Profile = () => {
       <p className='mb-2'><strong>🧙🏻‍♂️ Privilege:</strong></p>
       <Privileges privilege={user.privilege} className='mb-4' />
 
-      <p className='mb-4'><strong>⏳ Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
+      <p className='mb-4'><strong>⏳ Member since:</strong> {new Date().toLocaleString()}</p>
       <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
       
       <button onClick={logout} className='h-10 px-6 font-semibold bg-black text-white'>Logout</button>

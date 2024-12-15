@@ -6,7 +6,7 @@ import API from '../API'
 
 export default function LoginPage() {
   const router = useRouter()
-  const { setToken } = useAuth()
+  const { setToken, setUser } = useAuth()
   const [error, setError] = useState()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -20,13 +20,14 @@ export default function LoginPage() {
     if (response.ok) {
       const res = await response.json()
       setToken(res.token)
+      setUser(res.user)
       router.push('/profile')
     } else {
       const res = await response.json()
       setError(res.message)
     }
   }
- 
+
   return (
     <div>
     <h2 className="text-xl mb-4">Login or Register</h2>
