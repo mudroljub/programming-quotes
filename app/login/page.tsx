@@ -6,7 +6,7 @@ import API from '../API'
 
 export default function LoginPage() {
   const router = useRouter()
-  const { setToken, setUser } = useAuth()
+  const { login } = useAuth()
   const [error, setError] = useState()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -19,8 +19,7 @@ export default function LoginPage() {
 
     if (response.ok) {
       const res = await response.json()
-      setToken(res.token)
-      setUser(res.user)
+      login(res.token, res.user)
       router.push('/profile')
     } else {
       const res = await response.json()

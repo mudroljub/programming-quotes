@@ -6,8 +6,7 @@ import API from '../API'
 interface AuthContextType {
   token: string | null
   user: User | null
-  setToken: (token: string) => void
-  setUser: (user: User) => void
+  login: (jwt: string, usr: User) => void
   logout: () => void
   loading: boolean
 }
@@ -40,18 +39,20 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       setLoading(false)
   }, [])
 
-  const setAndSaveToken = (jwt: string) => {
+  const login = (jwt: string, usr: User) => {
     setToken(jwt)
     localStorage.setItem('token', jwt)
+    setUser(usr)
   }
 
   const logout = () => {
+    setToken(null)
     localStorage.clear()
     setUser(null)
   }
 
   return (
-    <AuthContext.Provider value={{ token, setToken: setAndSaveToken, setUser, user, logout, loading }}>
+    <AuthContext.Provider value={{ token, user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   )
