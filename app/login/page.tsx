@@ -24,7 +24,6 @@ export default function LoginPage() {
     } else {
       const res = await response.json()
       setError(res.message)
-      setToken(null)
     }
   }
  

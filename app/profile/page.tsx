@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import Privileges from '../components/Privileges'
 
 const Profile = () => {
-  const { user, setToken, loading } = useAuth()
+  const { user, logout, loading } = useAuth()
 
   if (loading) return <p>Loading...</p>
   if (!user) return <p>You are not logged in</p>
@@ -18,7 +18,7 @@ const Profile = () => {
       <p className='mb-4'><strong>⏳ Logged in until:</strong> {new Date(user.exp * 1000).toLocaleString()}</p>
       <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
       
-      <button onClick={() => setToken(null)} className='h-10 px-6 font-semibold bg-black text-white'>Logout</button>
+      <button onClick={logout} className='h-10 px-6 font-semibold bg-black text-white'>Logout</button>
     </div>
   )
 }
