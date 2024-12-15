@@ -23,8 +23,7 @@ type Props = {
 
 export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   const { user } = useAuth()
-  console.log(user);
-  
+
   const [shouldDelete, setShouldDelete] = useState(false)
   const [favorite, setFavorite] = useState(false)
 
