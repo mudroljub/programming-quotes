@@ -6,7 +6,9 @@ import BlockQuote from '../components/BlockQuote'
 
 const Profile = () => {
   const { user, logout, loading } = useAuth()
-  const { quotes } = useQuotes()
+  const { quotes, setQuotes } = useQuotes()
+
+  const onDelete = (id: string) => setQuotes(quotes.filter(q => q._id !== id))
 
   if (loading) return <p>Loading...</p>
   if (!user) return <p>You are not logged in</p>
@@ -25,9 +27,9 @@ const Profile = () => {
       <button onClick={logout} className='h-10 px-6 font-semibold bg-black text-white'>Logout</button>
 
       <h2 className="text-xl mb-4">My favorites</h2>
-      {
-        favorites.map(quote => <BlockQuote quote={quote} key={quote._id} />)
-      }
+      {favorites.map(quote => 
+        <BlockQuote quote={quote} key={quote._id} onDelete={onDelete} />
+      )}
     </div>
   )
 }
