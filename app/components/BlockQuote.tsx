@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from "next/navigation"
+
 import { Quote } from '../types'
 import Stars from './Stars'
 import { useAuth } from '../context/AuthContext'
@@ -10,18 +12,14 @@ const editStyle = {
   display: 'inline-block',
   transform: 'rotateZ(90deg)',
 }
-const favoriteStyle = {
-  color: '#5799EF',
-  cssFloat: 'right',
-  fontSize: '32px'
-}
 
 type Props = {
   quote: Quote
-  onDelete?: Function
+  onDelete?: (id: string) => void
 }
 
 export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
+  const router = useRouter()
   const { user, setUser } = useAuth()
   const [shouldDelete, setShouldDelete] = useState(false)
 
@@ -33,7 +31,10 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
     try {
       await API.DELETE(`quotes/${quote._id}`)
       alert('Quote deleted successfully!')
-      if (onDelete) onDelete(quote._id)
+      if (onDelete) 
+        onDelete(quote._id)
+      else 
+        router.refresh()
     } catch (error) {
       alert('Something went wrong, please try again.')
     }
@@ -71,7 +72,15 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
       <Stars rating={quote.rating} id={quote._id} />
       <span> — <Link href={authorLink} target='_blank' className="hover:underline">{quote.author}</Link></span>
 
-      <button style={favoriteStyle} onClick={toggleFavorite} title='Add to favorites'>
+      <button 
+        style={{
+          color: '#5799EF',
+          float: 'right',
+          fontSize: '32px'
+        }} 
+        onClick={toggleFavorite} 
+        title='Add to favorites'
+      >
         {inFavorites() ? '★' : '☆'}
       </button>
     </blockquote>
