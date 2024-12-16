@@ -6,7 +6,8 @@ import API from '../API'
 import BlockQuote from '../components/BlockQuote'
 
 export default function Search(): JSX.Element | null {
-  const [quotes, setQuotes] = useState<Quote[] | undefined>()
+
+  const [quotes, setQuotes] = useState<Quote[]>([])
   const [selectedAuthor, setSelectedAuthor] = useState<string>()
   const [searchString, setSearchString] = useState<string>('')
 
@@ -31,9 +32,6 @@ export default function Search(): JSX.Element | null {
   const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchString(e.target.value)
   }
-
-  
-  if (!quotes) return null
 
   const onDelete = (id: string) => {
     const filtered = quotes.filter(q => q._id !== id)
@@ -62,6 +60,8 @@ export default function Search(): JSX.Element | null {
       text: highlightMatches(q.text, searchString)
     }))
   
+  if (!quotes) return null
+
   return (
     <>
       <h2 className="text-xl mb-4">Search quotes</h2>
