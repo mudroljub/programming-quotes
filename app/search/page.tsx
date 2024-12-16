@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useMemo } from "react"
 import Select from 'react-select'
 import { Quote } from '../types'
 import API from '../API'
@@ -45,12 +45,13 @@ export default function Search(): JSX.Element | null {
 
   const includes = (s1: string, s2: string) => s1.toLowerCase().includes(s2.toLowerCase())
 
-  const unique = quotes.reduce((acc, q) => acc.add(q.author), new Set())
-  const options = [...unique]
-    .sort()
-    .map(value => ({ value, label: value }))
+  const authors = useMemo(() => 
+    [...quotes.reduce((set, q) => set.add(q.author), new Set())]
+      .sort()
+      .map(value => ({ value, label: value }))
+  , [quotes])
 
-  const result = quotes
+  const result = useMemo(() => quotes
     .filter(q => (
       (searchString.length > 2 && includes(q.text, searchString) && !selectedAuthor || selectedAuthor === q.author) || 
       (!searchString.length && selectedAuthor === q.author)
@@ -58,7 +59,7 @@ export default function Search(): JSX.Element | null {
     .map(q => ({
       ...q,
       text: highlightMatches(q.text, searchString)
-    }))
+    })), [quotes, searchString, selectedAuthor])
   
   if (!quotes) return null
 
@@ -69,7 +70,7 @@ export default function Search(): JSX.Element | null {
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-4">
           <Select
-            options={options}
+            options={authors}
             isSearchable
             isClearable
             onChange={onChange}
