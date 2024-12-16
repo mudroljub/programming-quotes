@@ -8,6 +8,6 @@ npm run dev
 
 ## TODO
 
-- izlistati omiljene na profilu
+- stilizovati favorites na profilu
 - potvrda mejla
 - responsive

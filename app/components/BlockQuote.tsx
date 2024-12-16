@@ -16,9 +16,10 @@ const editStyle = {
 type Props = {
   quote: Quote
   onDelete?: (id: string) => void
+  style?: object
 }
 
-export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
+export default function BlockQuote({ quote, onDelete, style }: Props): JSX.Element {
   const router = useRouter()
   const { user, setUser } = useAuth()
   const [shouldDelete, setShouldDelete] = useState(false)
@@ -55,7 +56,7 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
   }
 
   return (
-    <blockquote className='bg-gray-900 text-white p-8 mt-4 mb-4'>
+    <blockquote className='bg-gray-900 text-white p-8 mt-4 mb-4' style={style}>
       <span style={{ float: 'right' }}>
         {user && user.privilege > 1 && (
           <Link href={`/edit-quote?id=${quote._id}`} className='px-1 text-lg' title='Edit'>
@@ -69,9 +70,6 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
 
       <p className="text-xl" dangerouslySetInnerHTML={{ __html: quote.text }} />
 
-      <Stars rating={quote.rating} id={quote._id} />
-      <span> — <Link href={authorLink} target='_blank' className="hover:underline">{quote.author}</Link></span>
-
       <button 
         style={{
           color: '#5799EF',
@@ -83,6 +81,9 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
       >
         {inFavorites() ? '★' : '☆'}
       </button>
+
+      <Stars rating={quote.rating} id={quote._id} />
+      <span> — <Link href={authorLink} target='_blank' className="hover:underline">{quote.author}</Link></span>
     </blockquote>
   )
 }
