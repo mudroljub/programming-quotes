@@ -12,11 +12,12 @@ const Profile = () => {
     <div>
       <h2 className="text-xl mb-4">My Profile</h2>
 
+      <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
       <p className='mb-2'><strong>🧙🏻‍♂️ Privilege:</strong></p>
       <Privileges privilege={user.privilege} className='mb-4' />
+      <p className='mb-4'><strong>⏳ Member since:</strong> {new Date().toLocaleDateString()}</p>
 
-      <p className='mb-4'><strong>⏳ Member since:</strong> {new Date().toLocaleString()}</p>
-      <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
+      <h2 className="text-xl mb-4">Favorites</h2>
       
       <button onClick={logout} className='h-10 px-6 font-semibold bg-black text-white'>Logout</button>
     </div>
