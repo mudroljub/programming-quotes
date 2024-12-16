@@ -24,7 +24,7 @@ const Profile = () => {
       <Privileges privilege={user.privilege} className='mb-4' />
       <p className='mb-4'><strong>⏳ Member since:</strong> {new Date().toLocaleDateString()}</p>
 
-      <button onClick={logout} className='mb-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
+      <button onClick={logout} className='rounded bg-transparent hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent'>Logout</button>
 
       <h2 className="text-xl mb-4 mt-4">Favorites</h2>
       <div 
