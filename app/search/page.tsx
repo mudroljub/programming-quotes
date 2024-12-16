@@ -1,29 +1,15 @@
 'use client'
-import React, { useEffect, useState, useMemo } from "react"
+import React, { useState, useMemo } from "react"
 import Select from 'react-select'
-import { Quote } from '../types'
-import API from '../API'
+
 import BlockQuote from '../components/BlockQuote'
+import { useQuotes } from '../context/QuoteContext'
 
 export default function Search(): JSX.Element | null {
 
-  const [quotes, setQuotes] = useState<Quote[]>([])
+  const { quotes, setQuotes } = useQuotes()
   const [selectedAuthor, setSelectedAuthor] = useState<string>()
   const [searchString, setSearchString] = useState<string>('')
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await API.GET('quotes')
-        const quotes: Quote[] = await response.json()
-        setQuotes(quotes)
-      } catch (error) {
-        console.error("Error fetching quotes:", error)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   const onChange = (selected: any) => {
     setSelectedAuthor(selected?.value)
@@ -34,8 +20,7 @@ export default function Search(): JSX.Element | null {
   }
 
   const onDelete = (id: string) => {
-    const filtered = quotes.filter(q => q._id !== id)
-    setQuotes(filtered)
+    setQuotes(quotes.filter(q => q._id !== id))
   }
 
   const highlightMatches = (text: string, searchString: string) => {
@@ -53,8 +38,8 @@ export default function Search(): JSX.Element | null {
 
   const result = useMemo(() => quotes
     .filter(q => (
-      (searchString.length > 2 && includes(q.text, searchString) && !selectedAuthor || selectedAuthor === q.author) || 
-      (!searchString.length && selectedAuthor === q.author)
+      (selectedAuthor === q.author && includes(q.text, searchString)) ||
+      (!selectedAuthor && searchString.length > 2 && includes(q.text, searchString))
     ))
     .map(q => ({
       ...q,
