@@ -12,7 +12,7 @@ const editStyle = {
 }
 const favoriteStyle = {
   color: '#5799EF',
-  float: 'right',
+  cssFloat: 'right',
   fontSize: '32px'
 }
 
