@@ -19,10 +19,10 @@ const Profile = () => {
     <div>
       <h2 className="text-xl mb-4">My Profile</h2>
 
-      <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
-      <p className='mb-2'><strong>🧙🏻‍♂️ Privilege:</strong></p>
+      <p className='mb-4'><strong>Email:</strong> {user.email}</p>
+      <p className='mb-2'><strong>Privilege:</strong></p>
       <Privileges privilege={user.privilege} className='mb-4' />
-      <p className='mb-4'><strong>⏳ Member since:</strong> {new Date().toLocaleDateString()}</p>
+      <p className='mb-4'><strong>Member since:</strong> {new Date().toLocaleDateString()}</p>
 
       <button onClick={logout} className='rounded bg-transparent hover:bg-black text-black hover:text-white py-2 px-4 border border-black hover:border-transparent'>Logout</button>
 
