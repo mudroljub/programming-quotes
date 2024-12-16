@@ -5,6 +5,7 @@ import API from '../API'
 
 interface AuthContextType {
   user: User | null
+  setUser: (usr: User) => void
   login: (jwt: string, usr: User) => void
   logout: () => void
   loading: boolean
@@ -47,7 +48,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   )

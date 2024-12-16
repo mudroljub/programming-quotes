@@ -22,10 +22,8 @@ type Props = {
 }
 
 export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
-  const { user } = useAuth()
-
+  const { user, setUser } = useAuth()
   const [shouldDelete, setShouldDelete] = useState(false)
-  const [favorite, setFavorite] = useState(false)
 
   const authorLink: string = `https://en.wikipedia.org/wiki/${quote.author.replace(/ /g, '_')}`;
 
@@ -47,10 +45,12 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
     setShouldDelete(true)
   }
 
+  const inFavorites = () => user?.favorites.includes(quote._id)
+
   const toggleFavorite = async() => {
     if (!user) return
     const res = await API.POST(`quotes/favorite/${quote._id}`, {})
-    if (res.ok) setFavorite(!favorite)
+    if(res.ok) setUser(await res.json())
   }
 
   return (
@@ -72,7 +72,7 @@ export default function BlockQuote({ quote, onDelete }: Props): JSX.Element {
       <span> — <Link href={authorLink} target='_blank' className="hover:underline">{quote.author}</Link></span>
 
       <button style={favoriteStyle} onClick={toggleFavorite} title='Add to favorites'>
-        {favorite ? '★' : '☆'}
+        {inFavorites() ? '★' : '☆'}
       </button>
     </blockquote>
   )
