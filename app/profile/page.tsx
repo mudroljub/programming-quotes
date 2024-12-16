@@ -35,7 +35,7 @@ const Profile = () => {
         }}
       >
         {favorites.map(quote => 
-          <BlockQuote quote={quote} key={quote._id} onDelete={onDelete} style={{ width: '48%' }} />
+          <BlockQuote quote={quote} key={quote._id} onDelete={onDelete} className='fav-width' />
         )}
       </div>
     </div>

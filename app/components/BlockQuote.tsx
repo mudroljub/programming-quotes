@@ -16,10 +16,10 @@ const editStyle = {
 type Props = {
   quote: Quote
   onDelete?: (id: string) => void
-  style?: object
+  className?: string
 }
 
-export default function BlockQuote({ quote, onDelete, style }: Props): JSX.Element {
+export default function BlockQuote({ quote, onDelete, className }: Props): JSX.Element {
   const router = useRouter()
   const { user, setUser } = useAuth()
   const [shouldDelete, setShouldDelete] = useState(false)
@@ -56,7 +56,7 @@ export default function BlockQuote({ quote, onDelete, style }: Props): JSX.Eleme
   }
 
   return (
-    <blockquote className='bg-gray-900 text-white p-8 mt-4 mb-4' style={style}>
+    <blockquote className={`bg-gray-900 text-white p-8 mt-4 mb-4 ${className}`}>
       <span style={{ float: 'right' }}>
         {user && user.privilege > 1 && (
           <Link href={`/edit-quote?id=${quote._id}`} className='px-1 text-lg' title='Edit'>
