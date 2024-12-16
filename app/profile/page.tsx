@@ -18,15 +18,15 @@ const Profile = () => {
   return (
     <div>
       <h2 className="text-xl mb-4">My Profile</h2>
-      <button onClick={logout} className='mb-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
 
       <p className='mb-4'><strong>✉️ Email:</strong> {user.email}</p>
       <p className='mb-2'><strong>🧙🏻‍♂️ Privilege:</strong></p>
       <Privileges privilege={user.privilege} className='mb-4' />
       <p className='mb-4'><strong>⏳ Member since:</strong> {new Date().toLocaleDateString()}</p>
 
+      <button onClick={logout} className='mb-4 h-10 px-6 font-semibold bg-black text-white'>Logout</button>
 
-      <h2 className="text-xl mb-4 mt-4">My favorites</h2>
+      <h2 className="text-xl mb-4 mt-4">Favorites</h2>
       <div 
         style={{
           display: 'flex',
