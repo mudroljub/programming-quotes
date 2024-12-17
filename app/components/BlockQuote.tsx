@@ -47,7 +47,7 @@ export default function BlockQuote({ quote, onDelete, className }: Props): JSX.E
     setShouldDelete(true)
   }
 
-  const inFavorites = () => user?.favorites.includes(quote._id)
+  const inFavorites = () => user?.favorites?.includes(quote._id)
 
   const toggleFavorite = async() => {
     if (!user) return

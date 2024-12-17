@@ -17,7 +17,7 @@ export type User = {
   email: string;
   privilege: number;
   memberSince: string;
-  favorites: string[];
+  favorites?: string[];
 };
 
 type Dataset = {

@@ -12,7 +12,6 @@ const Profile = () => {
   const onDelete = (id: string) => setQuotes(quotes.filter(q => q._id !== id))
 
   const verifyEmail = async() => {
-    console.log('verify')
     const res = await API.POST('auth/email', {})
     if (res.ok) alert('Email sent')
   }
@@ -20,7 +19,7 @@ const Profile = () => {
   if (loading) return <p>Loading...</p>
   if (!user) return <p>You are not logged in</p>
 
-  const favorites = quotes.filter(q => user.favorites.includes(q._id))
+  const favorites = quotes.filter(q => user.favorites?.includes(q._id))
 
   return (
     <div>
