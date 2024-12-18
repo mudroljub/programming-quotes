@@ -8,9 +8,11 @@ export default function LoginPage() {
   const router = useRouter()
   const { login } = useAuth()
   const [error, setError] = useState()
+  const [posting, setPosting] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    setPosting(true)
 
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email')
@@ -25,6 +27,7 @@ export default function LoginPage() {
       const res = await response.json()
       setError(res.message)
     }
+    setPosting(false)
   }
 
   return (
@@ -52,7 +55,7 @@ export default function LoginPage() {
         />
       </div>
       {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2">Login</button>
+      <button type="submit" disabled={posting} className="bg-blue-500 text-white px-4 py-2">Login</button>
     </form>
   </div>
   )
